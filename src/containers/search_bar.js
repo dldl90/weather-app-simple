@@ -1,4 +1,7 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { fetchWeather } from '../actions/index'
 
 class SearchBar extends PureComponent {
   constructor(props) {
@@ -8,21 +11,28 @@ class SearchBar extends PureComponent {
     this.state = {
       term: ''
     }
+
+    this.onFormSubmit = this.onFormSubmit.bind(this)
   }
 
   onInputChange(event) {
-    console.log(event.target.value)
+    this.setState({
+      term: event.target.value
+    })
   }
 
-  onFormSubmit(event) {
-    event.preventDefault()
+  onFormSubmit(e) {
+    e.preventDefault()
+    // console.log(this.state.term)
+    this.props.fetchWeather(this.state.term)
+    this.setState({ term: '' })
   }
 
   render() {
     const { term } = this.state
 
     return (
-      <form onSubmit={(event) => this.onFormSubmit(event)} className='input-group'>
+      <form onSubmit={this.onFormSubmit} className='input-group'>
         <input
           className='form-control'
           placeholder='Get a five day forecast in your favourite cities'
@@ -37,4 +47,10 @@ class SearchBar extends PureComponent {
   }
 }
 
-export default SearchBar
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchWeather }, dispatch)
+}
+
+// export default SearchBar
+export default connect(null, mapDispatchToProps)(SearchBar)
+

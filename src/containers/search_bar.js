@@ -23,6 +23,8 @@ class SearchBar extends PureComponent {
   onFormSubmit(e) {
     e.preventDefault()
     // console.log(this.state.term)
+
+    // Submiting your actions from the action folder
     this.props.fetchWeather(this.state.term)
     this.setState({ term: '' })
   }

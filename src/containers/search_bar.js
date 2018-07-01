@@ -5,7 +5,6 @@ import { fetchWeather } from '../actions/index'
 
 class SearchBar extends PureComponent {
   constructor(props) {
-
     super(props)
 
     this.state = {
@@ -46,6 +45,10 @@ class SearchBar extends PureComponent {
     )
   }
 }
+
+// function mapStateToProps(state) {
+  
+// }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchWeather }, dispatch)
